@@ -1,0 +1,5 @@
+inventory
+vars/main.yml
+#auto render
+.idea
+README.html

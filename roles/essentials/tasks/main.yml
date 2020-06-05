@@ -1,0 +1,36 @@
+---
+#ubuntu 16.04
+- name: Update all packages
+  apt:
+    update_cache: yes
+    upgrade: safe
+    autoremove: yes
+  become: true
+
+- name: Install python2
+  raw: sudo apt install -y python-minimal
+  become: true
+
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: present
+  become: true
+#end
+- name: Install software for apt repository management.
+  become: true
+  apt:
+    name: ['python-apt', 'python3-apt', 'python3-pycurl']
+    state: present
+
+- name: Install essential packages
+  apt:
+    update_cache: yes
+    pkg:
+      - git
+      - curl
+      - openjdk-8-jre
+      - openjdk-8-jdk
+      - openjdk-8-jdk-headless
+    state: present
+  become: true

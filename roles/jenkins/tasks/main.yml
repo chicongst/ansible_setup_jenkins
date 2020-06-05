@@ -1,0 +1,30 @@
+---
+- name: Add Jenkins-CI Repository Key
+  apt_key:
+    url: "http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key"
+    state: present
+
+- name: Add Jenkins-CI Repository
+  apt_repository:
+    repo: 'deb https://pkg.jenkins.io/debian binary/'
+    state: present
+    update_cache: yes
+
+- name: Install Jenkins-CI
+  apt:
+    name: jenkins
+    state: present
+  notify:
+    - Restart Jenkins
+
+- name: Set Jenkins-CI to listen only on 127.0.0.1
+  lineinfile:
+    dest: /etc/default/jenkins
+    regexp: ^JENKINS_ARGS=
+    line: 'JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpListenAddress=127.0.0.1 --httpPort=$HTTP_PORT --prefix=/jenkins"'
+  notify: Restart Jenkins
+
+- name: Read Jenkins password
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: jenkins_password
+- debug: msg="{{ jenkins_password.stdout | quote }}"

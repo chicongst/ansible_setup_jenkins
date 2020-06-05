@@ -1,0 +1,17 @@
+---
+
+- hosts: jenkins
+
+  vars_files:
+    - vars/main.yml
+
+  become: true
+  roles:
+    - name: essentials
+      tags: essentials
+
+    - name: ansible
+      tags: ansible
+
+    - name: jenkins
+      tags: jenkins
