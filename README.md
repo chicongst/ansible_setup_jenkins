@@ -1,5 +1,3 @@
-# MTB JENKINS DEPLOY
-
 ## Introduce
 Jenkins is one of the most popular open-source continuous integration and continuous delivery servers 
 
@@ -29,5 +27,5 @@ $ sudo apt install ansible
 Go to folder jenkins then:
 ```sh
 $ cd jenkins
-$ ansible-playbook -i inventory main.yml
+$ ansible-playbook -i inventory
 ```
